@@ -1,0 +1,76 @@
+/* App.css - Estilos globais adicionais */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal scroll */
+.container {
+  max-width: 100%;
+}
+
+/* Mobile responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Touch optimization for mobile */
+@media (hover: none) and (pointer: coarse) {
+  button, a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Custom scrollbar for main page */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #007b83;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #004d52;
+}
+
+/* Prevent unwanted scrollbars in nested elements */
+* {
+  scrollbar-width: thin;
+}
+
+/* Ensure no element creates its own scroll context unless explicitly needed */
+section:not([class*="overflow-"]),
+div:not([class*="overflow-"]):not(.allow-scroll) {
+  overflow: visible;
+}
+
