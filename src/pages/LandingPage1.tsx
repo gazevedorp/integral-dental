@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Users, Heart, Award, CheckCircle, Star, Smile, Phone } from 'lucide-react';
+import { ArrowRight, Shield, Users, Award, CheckCircle, Star, Smile, Phone } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const LandingPage1 = () => {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
 
   const familyPlans = [
     {
