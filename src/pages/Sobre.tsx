@@ -22,11 +22,6 @@ const Sobre = () => {
       description: 'Tecnologia de ponta e aperfeiçoamento técnico constante'
     },
     {
-      icon: Handshake,
-      title: 'Parceria de Respeito',
-      description: 'Relacionamento baseado em respeito mútuo com clientes e colaboradores'
-    },
-    {
       icon: Target,
       title: 'Ética e Transparência',
       description: 'Compromisso com a verdade e clareza em todas as ações'
@@ -114,7 +109,7 @@ const Sobre = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {valores.map((valor, index) => (
               <motion.div
                 key={valor.title}
