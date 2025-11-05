@@ -160,7 +160,7 @@ const CanalEtico = () => {
                   <Mail className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-3">E-mail</h3>
-                <p className="text-lg font-black text-primary mb-2 break-all">
+                <p className="text-lg font-black text-primary mb-2">
                   administracao@integraldental.com.br
                 </p>
                 <p className="text-gray-600">Resposta em até 7 dias úteis</p>
