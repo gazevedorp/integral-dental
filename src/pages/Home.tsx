@@ -388,21 +388,6 @@ const Home = () => {
               Planos Odontológicos{' '}
               <span className="relative inline-block">
                 Integral Dental
-                <motion.svg
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                  className="absolute -bottom-2 left-0 w-full"
-                  viewBox="0 0 200 12"
-                >
-                  <motion.path
-                    d="M0 6 Q50 0, 100 6 T200 6"
-                    stroke="#007b83"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-                </motion.svg>
               </span>
             </h2>
             <p className="text-lead text-gray-600 max-w-4xl mx-auto px-4 leading-relaxed">
