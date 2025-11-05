@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Award, Target, Heart, Users, Building2, MapPin, Phone, Mail } from 'lucide-react';
+import { Award, Target, Heart, Users, Building2, MapPin, Phone, Mail, Handshake } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
@@ -8,31 +8,29 @@ const Sobre = () => {
   const valores = [
     {
       icon: Heart,
+      title: 'Atendimento Humanizado',
+      description: 'Lema do Dr. Antonio e Dr. Ricardo: cuidar de pessoas com empatia, respeito e dedicação'
+    },
+    {
+      icon: Users,
       title: 'Compromisso e Responsabilidade',
       description: 'Dedicação total à saúde bucal dos nossos beneficiários'
     },
     {
       icon: Award,
       title: 'Competência e Inovação',
-      description: 'Tecnologia avançada e profissionais altamente qualificados'
+      description: 'Tecnologia de ponta e aperfeiçoamento técnico constante'
     },
     {
-      icon: Users,
-      title: 'Parceria Respeitosa',
-      description: 'Relacionamento sólido com clientes e colaboradores'
+      icon: Handshake,
+      title: 'Parceria de Respeito',
+      description: 'Relacionamento baseado em respeito mútuo com clientes e colaboradores'
     },
     {
       icon: Target,
       title: 'Ética e Transparência',
       description: 'Compromisso com a verdade e clareza em todas as ações'
     }
-  ];
-
-  const timeline = [
-    { year: '1988', event: 'Fundação da Integral Dental em Ribeirão Preto' },
-    { year: '1994', event: 'Expansão e consolidação no mercado regional' },
-    { year: '2010', event: 'Modernização da estrutura operacional' },
-    { year: '2025', event: 'Mais de 35 anos de tradição e excelência' }
   ];
 
   return (
@@ -64,8 +62,10 @@ const Sobre = () => {
             </h1>
 
             <p className="text-lead text-gray-600 leading-relaxed">
-              Fundada em 1988 em Ribeirão Preto, a Integral Dental é reconhecida pela
-              excelência em tratamentos odontológicos e pelo compromisso com a satisfação total dos clientes.
+              Fundada em Ribeirão Preto em 1990, a Integral atua no segmento de planos odontológicos
+              com ampla rede de profissionais e clínicas credenciadas. Moderna e reconhecida pela excelência,
+              a empresa oferece tecnologia de ponta e aperfeiçoamento técnico constante,
+              garantindo atendimento em todas as especialidades.
             </p>
           </motion.div>
         </div>
@@ -88,9 +88,9 @@ const Sobre = () => {
                 <h2 className="text-h3 font-black">Nossa Missão</h2>
               </div>
               <p className="text-lead leading-relaxed text-white/95">
-                "Entregar qualidade em saúde bucal e garantir a satisfação total do cliente,
+                Entregar qualidade em saúde bucal através de um atendimento humanizado e garantir a satisfação total do cliente,
                 estabelecendo um relacionamento sólido que resulte em proteção ao serviço de
-                saúde odontológica e excelência odontológica para os beneficiários."
+                saúde odontológica e excelência odontológica para os beneficiários. A humanização sempre foi o lema do Dr. Antonio e do Dr. Ricardo na constituição desses preceitos.
               </p>
             </div>
           </motion.div>
@@ -114,7 +114,7 @@ const Sobre = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {valores.map((valor, index) => (
               <motion.div
                 key={valor.title}
@@ -137,88 +137,6 @@ const Sobre = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Timeline Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-h2 font-black text-gray-900 mb-6">
-              Nossa Trajetória
-            </h2>
-            <p className="text-lead text-gray-600 max-w-2xl mx-auto">
-              Uma história de crescimento e dedicação à saúde bucal
-            </p>
-          </motion.div>
-
-          <div className="max-w-4xl mx-auto">
-            {timeline.map((item, index) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex gap-8 mb-12 last:mb-0"
-              >
-                <div className="w-32 flex-shrink-0 text-right">
-                  <div className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-black text-h4">
-                    {item.year}
-                  </div>
-                </div>
-                <div className="relative flex-1 pb-12">
-                  <div className="absolute left-0 top-6 bottom-0 w-0.5 bg-primary/20" />
-                  <div className="absolute left-0 top-6 w-4 h-4 bg-primary rounded-full -ml-[7px]" />
-                  <div className="ml-8 bg-gray-50 p-6 rounded-xl border-2 border-gray-100">
-                    <p className="text-h5 text-gray-700 font-medium">{item.event}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Diferenciais Section */}
-      <section className="py-24 bg-gradient-to-br from-primary/5 to-secondary/5">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-6xl mx-auto"
-          >
-            <div className="text-center mb-16">
-              <h2 className="text-h2 font-black text-gray-900 mb-6">
-                Por que escolher a Integral?
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <div className="text-h1 font-black text-primary mb-3">35+</div>
-                <h3 className="text-h4 font-black text-gray-900 mb-2">Anos de Experiência</h3>
-                <p className="text-body text-gray-600">Desde 1988 no mercado de planos odontológicos</p>
-              </div>
-
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <div className="text-h1 font-black text-primary mb-3">100%</div>
-                <h3 className="text-h4 font-black text-gray-900 mb-2">Cobertura ROL ANS</h3>
-                <p className="text-body text-gray-600">Todos os procedimentos obrigatórios cobertos</p>
-              </div>
-
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <div className="text-h1 font-black text-primary mb-3">3</div>
-                <h3 className="text-h4 font-black text-gray-900 mb-2">Clínicas Próprias</h3>
-                <p className="text-body text-gray-600">Em Ribeirão Preto com estrutura moderna</p>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 

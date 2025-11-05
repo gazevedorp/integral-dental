@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
 
 const WhatsAppButton = () => {
   const whatsappNumber = '5516988326932';
@@ -35,7 +34,7 @@ const WhatsAppButton = () => {
 
       {/* Button */}
       <div className="relative w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-2xl flex items-center justify-center hover:shadow-green-500/50 transition-shadow">
-        <MessageCircle className="w-8 h-8 text-white" fill="white" />
+        <img src="/src/assets/icon-whatsapp.png" alt="WhatsApp" className="w-8 h-8" />
       </div>
 
       {/* Tooltip */}

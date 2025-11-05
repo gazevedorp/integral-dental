@@ -21,7 +21,7 @@ const Duvidas = () => {
         },
         {
           q: 'Quando receberei minha carteirinha?',
-          a: 'Nossas carteirinhas são produzidas e enviadas ao nosso beneficiário em média até 30 dias após a adesão do plano.'
+          a: 'A Integral disponibiliza a carteirinha de forma virtual, através do nosso APP e imediatamente após a adesão.'
         },
         {
           q: 'Qual é a data de vencimento para minha fatura referente ao plano?',
@@ -88,7 +88,7 @@ const Duvidas = () => {
       questions: [
         {
           q: 'Como faço para cancelar meu plano?',
-          a: 'Para cancelamento, entre em contato através de nossos canais de atendimento: telefone (16) 2102-7888, email administracao@integraldental.com.br ou através do nosso site.'
+          a: 'Para cancelamento, entre em contato através de nossos canais de atendimento: telefone (16) 2102-7888, email contato@integraldental.com.br ou através do nosso site.'
         },
         {
           q: 'O que acontece se eu atrasar o pagamento?',

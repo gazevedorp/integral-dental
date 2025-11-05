@@ -8,9 +8,9 @@ import FAQSection from '../components/FAQSection';
 const Home = () => {
   const [currentImageSlide, setCurrentImageSlide] = useState(0);
   const [openIDSS, setOpenIDSS] = useState<number | null>(null);
+  const [selectedPlanCategory, setSelectedPlanCategory] = useState<'empresarial' | 'pme' | 'individual' | 'especiais'>('empresarial');
 
   const heroImages = [
-    'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&h=700&q=80',
     'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&h=700&q=80',
     'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&h=700&q=80'
   ];
@@ -30,33 +30,120 @@ const Home = () => {
     setCurrentImageSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
   };
 
-  const familyPlans = [
-    {
-      icon: Shield,
-      title: 'Plano Empresarial',
-      description: 'Soluções completas para empresas, sindicatos e associações',
-      features: ['Cobertura total do ROL ANS', 'Serviços de ponta', 'Moderna e atualizada']
-    },
-    {
-      icon: Users,
-      title: 'Plano Familiar',
-      description: 'Processo simples e custos acessíveis',
-      features: ['Cobertura total do ROL ANS', 'Dentistas criteriosamente selecionados', 'Processo rápido']
-    },
-    {
-      icon: Smile,
-      title: 'Plano Ortodontia (Ortoplus)',
-      description: 'Plano especial para tratamento ortodôntico',
-      features: ['Ideal para aparelho dentário', 'Cobertura completa', 'Atendimento especializado']
-    }
-  ];
+  const plansData = {
+    empresarial: [
+      {
+        icon: Shield,
+        name: 'Integral Master',
+        badge: 'PREMIUM',
+        subtitle: 'Empresas que valorizam excelência',
+        description: 'Solução completa para empresas que desejam oferecer aos colaboradores atendimento odontológico de alta qualidade.',
+        features: [
+          'Cobertura total do Rol de Procedimentos da ANS',
+          'Consultas, urgências, limpezas, restaurações',
+          'Tratamentos de canal, extrações e radiografias',
+          'Atendimento em clínicas credenciadas Integral Dental',
+          'Adesão simplificada com inclusão de dependentes',
+          'Planos sem coparticipação'
+        ],
+        highlight: 'Ideal para empresas que valorizam a qualidade e desejam um benefício completo.'
+      },
+      {
+        icon: Shield,
+        name: 'Integral Sênior',
+        badge: 'CUSTO-BENEFÍCIO',
+        subtitle: 'Qualidade com economia',
+        description: 'Solução completa com cobertura integral e condições diferenciadas.',
+        features: [
+          'Cobertura total do Rol de Procedimentos da ANS',
+          'Consultas, urgências, limpezas, restaurações',
+          'Tratamentos de canal, extrações e radiografias',
+          'Atendimento em clínicas credenciadas exclusivas',
+          'Adesão simplificada com inclusão de dependentes',
+          'Coparticipação apenas em alguns procedimentos'
+        ],
+        highlight: 'Ideal para empresas que desejam benefício robusto com excelente custo-benefício.'
+      }
+    ],
+    pme: [
+      {
+        icon: Users,
+        name: 'Integral MEI',
+        badge: 'MEI & PME',
+        subtitle: 'Para MEI e pequenas empresas',
+        description: 'Solução completa para empresas MEI e PME com cobertura e condições diferenciadas.',
+        features: [
+          'Cobertura total do Rol de Procedimentos da ANS',
+          'Consultas, urgências, limpezas, restaurações',
+          'Tratamentos de canal, extrações e radiografias',
+          'Atendimento em clínicas credenciadas exclusivas',
+          'Adesão simplificada com inclusão de dependentes',
+          'Apenas 11 procedimentos com coparticipação'
+        ],
+        highlight: 'Ideal para MEI e PME que desejam benefício com excelente custo-benefício.'
+      }
+    ],
+    individual: [
+      {
+        icon: Users,
+        name: 'Integral Controle',
+        badge: 'ECONÔMICO',
+        subtitle: 'Conforto e amplitude de cobertura',
+        description: 'Para quem busca mais conforto e amplitude de cobertura, com coparticipações reduzidas em procedimentos complexos.',
+        features: [
+          '156 procedimentos odontológicos com coparticipação reduzida',
+          'Consultas odontológicas e urgências',
+          'Restaurações e aplicação de flúor',
+          'Limpeza, selante e remoção de tártaro',
+          'Mensalidade individual acessível',
+          'Descontos progressivos por número de dependentes'
+        ],
+        highlight: 'Perfeito para quem busca economia com boa cobertura.'
+      },
+      {
+        icon: Award,
+        name: 'Integral Premium',
+        badge: 'COMPLETO',
+        subtitle: 'Cobertura ampla e benefícios exclusivos',
+        description: 'Plano completo para quem deseja cobertura ampla e benefícios exclusivos. Ideal para famílias que valorizam prevenção, estética e segurança.',
+        features: [
+          '156 procedimentos odontológicos',
+          'Consultas, urgências, restaurações e limpezas',
+          'Aplicação de flúor, selante e remoção de tártaro',
+          'Sem coparticipação em tratamentos de canal',
+          'Sem coparticipação em extrações de sisos',
+          'Sem coparticipação em radiografias panorâmicas',
+          'Descontos progressivos por número de dependentes'
+        ],
+        highlight: 'Ideal para famílias que valorizam prevenção, estética e segurança.'
+      }
+    ],
+    especiais: [
+      {
+        icon: Smile,
+        name: 'Ortoplus',
+        badge: 'ORTODONTIA',
+        subtitle: 'Especializado em ortodontia',
+        description: 'O Plano Integral Ortoplus é a escolha perfeita para quem deseja alinhar o sorriso com aparelhos ortodônticos.',
+        features: [
+          'Planos mensais sem carência',
+          'Dentistas especializados em ortodontia e estética',
+          'Inclui cobertura clínica',
+          'Atendimento em clínicas credenciadas Integral Dental',
+          'Custo acessível e acompanhamento contínuo'
+        ],
+        highlight: 'Mais do que estética: um sorriso alinhado é sinônimo de saúde, autoestima e novas oportunidades.'
+      }
+    ]
+  };
 
   const benefits = [
     'Mais de 35 anos de tradição',
-    'Dentistas criteriosamente selecionados',
+    'Rede ampla de profissionais e clínicas credenciadas',
     'Cobertura total do ROL de Procedimentos da ANS',
     'Atendimento humanizado',
-    'Tecnologia moderna e equipamentos de ponta',
+    'Tecnologia de ponta e aperfeiçoamento técnico constante',
+    'Atendimento em todas as especialidades'
   ];
 
   const testimonials = [
@@ -158,7 +245,7 @@ const Home = () => {
               </div>
 
               <p className="text-lead text-gray-600 max-w-xl leading-relaxed">
-                Planos odontológicos com <span className="font-semibold text-gray-900">mais de 35 anos de tradição</span>,
+                <span className="font-semibold text-gray-900">Desde 1990</span>,
                 oferecendo atendimento humanizado e tecnologia moderna para sua saúde bucal.
               </p>
 
@@ -283,23 +370,24 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Family Plans Section - Premium Cards (from LandingPage3) */}
+      {/* Plans Section - Tabs Selector */}
       <section id="planos" className="py-16 md:py-24 lg:py-32 bg-white relative overflow-hidden scroll-mt-24">
         {/* Decorative Elements */}
         <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-gradient-to-bl from-primary/5 via-transparent to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-gradient-to-tr from-primary-dark/5 via-transparent to-transparent rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12 md:mb-16 lg:mb-20"
+            className="text-center mb-12 md:mb-16"
           >
             <h2 className="text-h2 font-black text-gray-900 mb-4 md:mb-6">
-              Escolha o plano{' '}
+              Planos Odontológicos{' '}
               <span className="relative inline-block">
-                ideal
+                Integral Dental
                 <motion.svg
                   initial={{ pathLength: 0 }}
                   whileInView={{ pathLength: 1 }}
@@ -317,104 +405,478 @@ const Home = () => {
                 </motion.svg>
               </span>
             </h2>
-            <p className="text-lead text-gray-600 px-4">
-              Opções flexíveis para cada necessidade da sua família
+            <p className="text-lead text-gray-600 max-w-4xl mx-auto px-4 leading-relaxed">
+              A Integral Dental oferece soluções completas em saúde bucal para empresas, famílias e pessoas físicas,
+              com planos acessíveis e ampla cobertura. Todos os nossos planos possuem cobertura total do Rol de Procedimentos da ANS.
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-            {familyPlans.map((plan, index) => (
-              <motion.div
-                key={plan.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
-                whileHover={{ y: -15 }}
-                className="group relative"
-              >
-                {/* Hover Glow */}
-                <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-dark rounded-[2.5rem] opacity-0 group-hover:opacity-10 blur-xl transition-opacity" />
+          {/* Tabs Navigation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 md:gap-4 mb-12 md:mb-16"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedPlanCategory('empresarial')}
+              className={`flex items-center justify-center gap-3 px-6 md:px-8 py-4 md:py-5 rounded-2xl font-bold text-base md:text-lg transition-all ${
+                selectedPlanCategory === 'empresarial'
+                  ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-xl'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Shield className="w-5 h-5" />
+              <span>Empresarial</span>
+            </motion.button>
 
-                {/* Card */}
-                <div className="relative bg-white border-2 border-gray-100 group-hover:border-primary/30 rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 lg:p-10 hover:shadow-2xl transition-all h-full flex flex-col">
-                  {/* Icon */}
-                  <div className="mb-6 md:mb-8">
-                    <div className="relative inline-block">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dark opacity-10 rounded-2xl md:rounded-3xl blur-lg group-hover:opacity-30 transition-opacity" />
-                      <div className="relative w-16 md:w-20 lg:w-24 h-16 md:h-20 lg:h-24 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-2xl md:rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <plan.icon className="w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 text-primary" />
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedPlanCategory('pme')}
+              className={`flex items-center justify-center gap-3 px-6 md:px-8 py-4 md:py-5 rounded-2xl font-bold text-base md:text-lg transition-all ${
+                selectedPlanCategory === 'pme'
+                  ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-xl'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Users className="w-5 h-5" />
+              <span>PME / MEI</span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedPlanCategory('individual')}
+              className={`flex items-center justify-center gap-3 px-6 md:px-8 py-4 md:py-5 rounded-2xl font-bold text-base md:text-lg transition-all ${
+                selectedPlanCategory === 'individual'
+                  ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-xl'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Users className="w-5 h-5" />
+              <span>Individual / Familiar</span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedPlanCategory('especiais')}
+              className={`flex items-center justify-center gap-3 px-6 md:px-8 py-4 md:py-5 rounded-2xl font-bold text-base md:text-lg transition-all ${
+                selectedPlanCategory === 'especiais'
+                  ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-xl'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Smile className="w-5 h-5" />
+              <span>Especiais</span>
+            </motion.button>
+          </motion.div>
+
+          {/* Category Description */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedPlanCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mb-12 text-center max-w-4xl mx-auto"
+            >
+              {selectedPlanCategory === 'empresarial' && (
+                <div>
+                  <h3 className="text-h3 font-black text-gray-900 mb-4">Planos Empresariais</h3>
+                  <p className="text-body text-gray-700 leading-relaxed">
+                    Ideal para empresas, sindicatos e associações que desejam oferecer um benefício de alto valor agregado aos seus colaboradores,
+                    com ampla rede credenciada e excelente custo-benefício.
+                  </p>
+                </div>
+              )}
+              {selectedPlanCategory === 'pme' && (
+                <div>
+                  <h3 className="text-h3 font-black text-gray-900 mb-4">Planos PME / MEI</h3>
+                  <p className="text-body text-gray-700 leading-relaxed">
+                    Solução completa para empresas MEI e PME com cobertura e condições diferenciadas,
+                    ideal para pequenas empresas que valorizam qualidade com excelente custo-benefício.
+                  </p>
+                </div>
+              )}
+              {selectedPlanCategory === 'individual' && (
+                <div>
+                  <h3 className="text-h3 font-black text-gray-900 mb-4">Planos Individuais e Familiares</h3>
+                  <p className="text-body text-gray-700 leading-relaxed">
+                    A Integral Dental oferece planos acessíveis e completos para você e sua família,
+                    com adesão rápida, sem carência e cobertura a partir de 2 dias úteis após a contratação.
+                  </p>
+                </div>
+              )}
+              {selectedPlanCategory === 'especiais' && (
+                <div>
+                  <h3 className="text-h3 font-black text-gray-900 mb-4">Planos Especiais</h3>
+                  <p className="text-body text-gray-700 leading-relaxed">
+                    Soluções específicas para necessidades especiais, incluindo ortodontia e implantes dentários.
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Plans Grid - Conditional Rendering */}
+          <AnimatePresence mode="wait">
+            {/* Empresarial */}
+            {selectedPlanCategory === 'empresarial' && (
+              <motion.div
+                key="empresarial"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+                className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+              >
+                {plansData.empresarial.map((plan, index) => (
+                  <motion.div
+                    key={plan.name}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -10 }}
+                    className="group relative"
+                  >
+                    {/* Hover Glow */}
+                    <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-dark rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity" />
+
+                    {/* Card */}
+                    <div className="relative bg-white border-2 border-gray-100 group-hover:border-primary/30 rounded-3xl p-8 hover:shadow-2xl transition-all h-full flex flex-col">
+                      {/* Badge */}
+                      <div className="absolute -top-3 -right-3 bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2 rounded-xl shadow-lg font-black text-xs">
+                        {plan.badge}
+                      </div>
+
+                      {/* Icon */}
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <plan.icon className="w-8 h-8 text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h4 className="text-h4 font-black text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                        {plan.name}
+                      </h4>
+                      <p className="text-small text-primary font-bold mb-4">{plan.subtitle}</p>
+                      <p className="text-body text-gray-600 mb-6">{plan.description}</p>
+
+                      {/* Features */}
+                      <ul className="space-y-3 mb-8 flex-1">
+                        {plan.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-small text-gray-700">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Highlight */}
+                      <div className="bg-primary/5 rounded-xl p-4 mb-6">
+                        <p className="text-small text-gray-700 italic">{plan.highlight}</p>
+                      </div>
+
+                      {/* CTA Button */}
+                      <motion.a
+                        href="https://api.whatsapp.com/send?phone=5516988326932"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-4 rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                      >
+                        Solicitar Proposta
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+
+            {/* PME / MEI */}
+            {selectedPlanCategory === 'pme' && (
+              <motion.div
+                key="pme"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+                className="grid gap-6 md:gap-8 max-w-2xl mx-auto"
+              >
+                {plansData.pme.map((plan, index) => (
+                  <motion.div
+                    key={plan.name}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -10 }}
+                    className="group relative"
+                  >
+                    {/* Hover Glow */}
+                    <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-dark rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity" />
+
+                    {/* Card */}
+                    <div className="relative bg-white border-2 border-gray-100 group-hover:border-primary/30 rounded-3xl p-8 hover:shadow-2xl transition-all h-full flex flex-col">
+                      {/* Badge */}
+                      <div className="absolute -top-3 -right-3 bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2 rounded-xl shadow-lg font-black text-xs">
+                        {plan.badge}
+                      </div>
+
+                      {/* Icon */}
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <plan.icon className="w-8 h-8 text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h4 className="text-h4 font-black text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                        {plan.name}
+                      </h4>
+                      <p className="text-small text-primary font-bold mb-4">{plan.subtitle}</p>
+                      <p className="text-body text-gray-600 mb-6">{plan.description}</p>
+
+                      {/* Features */}
+                      <ul className="space-y-3 mb-8 flex-1">
+                        {plan.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-small text-gray-700">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Highlight */}
+                      <div className="bg-primary/5 rounded-xl p-4 mb-6">
+                        <p className="text-small text-gray-700 italic">{plan.highlight}</p>
+                      </div>
+
+                      {/* CTA Button */}
+                      <motion.a
+                        href="https://api.whatsapp.com/send?phone=5516988326932"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-4 rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                      >
+                        Solicitar Proposta
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Individual / Familiar */}
+            {selectedPlanCategory === 'individual' && (
+              <motion.div
+                key="individual"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+                className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+              >
+                {plansData.individual.map((plan, index) => (
+                  <motion.div
+                    key={plan.name}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -10 }}
+                    className="group relative"
+                  >
+                    {/* Popular Badge for Premium */}
+                    {plan.badge === 'COMPLETO' && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 px-6 py-2 rounded-full shadow-xl font-black text-sm z-10">
+                        ⭐ Mais Popular
+                      </div>
+                    )}
+
+                    {/* Hover Glow */}
+                    <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-dark rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity" />
+
+                    {/* Card */}
+                    <div className={`relative bg-white border-2 ${plan.badge === 'COMPLETO' ? 'border-primary/50' : 'border-gray-100'} group-hover:border-primary/30 rounded-3xl p-8 hover:shadow-2xl transition-all h-full flex flex-col`}>
+                      {/* Badge */}
+                      <div className="absolute -top-3 -right-3 bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2 rounded-xl shadow-lg font-black text-xs">
+                        {plan.badge}
+                      </div>
+
+                      {/* Icon */}
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <plan.icon className="w-8 h-8 text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h4 className="text-h4 font-black text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                        {plan.name}
+                      </h4>
+                      <p className="text-small text-primary font-bold mb-4">{plan.subtitle}</p>
+                      <p className="text-body text-gray-600 mb-6">{plan.description}</p>
+
+                      {/* Features */}
+                      <ul className="space-y-3 mb-8 flex-1">
+                        {plan.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-small text-gray-700">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Highlight */}
+                      <div className="bg-primary/5 rounded-xl p-4 mb-6">
+                        <p className="text-small text-gray-700 italic">{plan.highlight}</p>
+                      </div>
+
+                      {/* CTA Button */}
+                      <motion.a
+                        href="https://api.whatsapp.com/send?phone=5516988326932"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-4 rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                      >
+                        Solicitar Proposta
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Especiais */}
+            {selectedPlanCategory === 'especiais' && (
+              <motion.div
+                key="especiais"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+                className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+              >
+                {plansData.especiais.map((plan, index) => (
+                  <motion.div
+                    key={plan.name}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -10 }}
+                    className="group relative"
+                  >
+                    {/* Hover Glow */}
+                    <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-dark rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity" />
+
+                    {/* Card */}
+                    <div className="relative bg-white border-2 border-gray-100 group-hover:border-primary/30 rounded-3xl p-8 hover:shadow-2xl transition-all h-full flex flex-col">
+                      {/* Badge */}
+                      <div className="absolute -top-3 -right-3 bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2 rounded-xl shadow-lg font-black text-xs">
+                        {plan.badge}
+                      </div>
+
+                      {/* Icon */}
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <plan.icon className="w-8 h-8 text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h4 className="text-h4 font-black text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                        {plan.name}
+                      </h4>
+                      <p className="text-small text-primary font-bold mb-4">{plan.subtitle}</p>
+                      <p className="text-body text-gray-600 mb-6">{plan.description}</p>
+
+                      {/* Features */}
+                      <ul className="space-y-3 mb-8 flex-1">
+                        {plan.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-small text-gray-700">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Highlight */}
+                      <div className="bg-primary/5 rounded-xl p-4 mb-6">
+                        <p className="text-small text-gray-700 italic">{plan.highlight}</p>
+                      </div>
+
+                      {/* CTA Button */}
+                      <motion.a
+                        href="https://api.whatsapp.com/send?phone=5516988326932"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-4 rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                      >
+                        Solicitar Proposta
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {/* Implantes - Contact Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="group relative"
+                >
+                  {/* Hover Glow */}
+                  <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-dark rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity" />
+
+                  {/* Card */}
+                  <div className="relative bg-gradient-to-br from-primary/5 to-primary-dark/5 border-2 border-primary/20 group-hover:border-primary/40 rounded-3xl p-8 hover:shadow-2xl transition-all h-full flex flex-col items-center justify-center text-center">
+                    {/* Icon */}
+                    <div className="mb-6">
+                      <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg">
+                        <Smile className="w-10 h-10 text-white" />
                       </div>
                     </div>
+
+                    {/* Title */}
+                    <h4 className="text-h3 font-black text-gray-900 mb-4">Implantes Dentários</h4>
+                    <p className="text-body text-gray-700 mb-8 max-w-sm">
+                      Recupere seu sorriso com segurança e qualidade. Entre em contato conosco para mais informações sobre nossos planos de implantes.
+                    </p>
+
+                    {/* CTA Button */}
+                    <motion.a
+                      href="https://api.whatsapp.com/send?phone=5516988326932&text=Gostaria%20de%20saber%20mais%20sobre%20implantes%20dent%C3%A1rios"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                    >
+                      Entre em Contato
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.a>
                   </div>
-
-                  {/* Title & Description */}
-                  <h3 className="text-h3 font-black mb-2 md:mb-3 text-gray-900 group-hover:text-primary transition-colors">
-                    {plan.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 md:mb-8 text-body">
-                    {plan.description}
-                  </p>
-
-                  {/* Features */}
-                  <ul className="space-y-4 mb-10 flex-1">
-                    {plan.features.map((feature, i) => (
-                      <motion.li
-                        key={feature}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4 + i * 0.1 }}
-                        className="flex items-start gap-3 group/item"
-                      >
-                        <div className="mt-1 relative">
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm opacity-0 group-hover/item:opacity-100 transition-opacity" />
-                          <div className="relative w-6 h-6 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center flex-shrink-0">
-                            <CheckCircle className="w-4 h-4 text-white" />
-                          </div>
-                        </div>
-                        <span className="text-gray-700 font-medium leading-relaxed">
-                          {feature}
-                        </span>
-                      </motion.li>
-                    ))}
-                  </ul>
-
-                  {/* CTA Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white py-5 rounded-2xl font-black text-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group/button"
-                  >
-                    Contratar Agora
-                    <motion.svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </motion.svg>
-                  </motion.button>
-
-                  {/* Popular Badge (for middle card) */}
-                  {index === 1 && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.6, type: "spring" }}
-                      className="absolute -top-4 -right-4 bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-2xl shadow-xl font-black text-sm"
-                    >
-                      ⭐ Mais Popular
-                    </motion.div>
-                  )}
-                </div>
+                </motion.div>
               </motion.div>
-            ))}
-          </div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -462,9 +924,9 @@ const Home = () => {
                 </motion.div>
 
                 <h2 className="text-h2 font-black text-gray-900 mb-6 leading-[1.1]">
-                  Muito mais que um{' '}
+                  Cuidando do seu sorriso desde{' '}
                   <span className="relative inline-block">
-                    plano
+                    1990
                     <motion.div
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
@@ -475,14 +937,13 @@ const Home = () => {
                   </span>
                 </h2>
 
-                <p className="text-lead text-gray-600 leading-relaxed">
-                  Mais de 35 anos oferecendo saúde bucal com atendimento humanizado,
-                  tecnologia moderna e dentistas criteriosamente selecionados.
+                <p className="text-lead text-gray-600 leading-relaxed mb-6">
+                  Atendimento humanizado, tecnologia de ponta e ampla rede de profissionais credenciados.
                 </p>
               </div>
 
               {/* Benefits List */}
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {benefits.map((benefit, index) => (
                   <motion.div
                     key={benefit}
@@ -490,39 +951,15 @@ const Home = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-all"
+                    className="flex items-center gap-3"
                   >
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-primary-dark/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <CheckCircle className="w-6 h-6 text-primary" />
+                    <div className="flex-shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 text-primary" />
                     </div>
-                    <div>
-                      <p className="text-body font-bold text-gray-900">{benefit}</p>
-                      <p className="text-small text-gray-600 mt-1">
-                        {[
-                          'Desde 1988 oferecendo qualidade e confiança',
-                          'Profissionais altamente qualificados e experientes',
-                          'Todos os procedimentos do rol obrigatório da ANS',
-                          'Cuidado próximo, acolhedor e respeitoso',
-                          'Equipamentos de última geração e diagnóstico preciso',
-                          'Localizadas em Vila Tibério, Campos Elíseos e Nove de Julho'
-                        ][index]}
-                      </p>
-                    </div>
+                    <p className="text-body text-gray-700">{benefit}</p>
                   </motion.div>
                 ))}
               </div>
-
-              <motion.button
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,123,131,0.2)" }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-gradient-to-r from-primary to-primary-dark text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl transition-all inline-flex items-center gap-2"
-              >
-                Conhecer Nossa História
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
             </motion.div>
           </div>
         </div>
@@ -1007,7 +1444,7 @@ const Home = () => {
                 </a>
 
                 <a
-                  href="mailto:administracao@integraldental.com.br"
+                  href="mailto:contato@integraldental.com.br"
                   className="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl hover:bg-primary/5 transition-all group"
                 >
                   <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -1017,7 +1454,7 @@ const Home = () => {
                   </div>
                   <div>
                     <p className="text-small text-gray-600 mb-1">E-mail</p>
-                    <p className="text-body font-black text-gray-900 break-all">administracao@integraldental.com.br</p>
+                    <p className="text-body font-black text-gray-900 break-all">contato@integraldental.com.br</p>
                   </div>
                 </a>
               </div>

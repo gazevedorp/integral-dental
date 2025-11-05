@@ -1020,7 +1020,7 @@ const LandingPage1 = () => {
                 </a>
 
                 <a
-                  href="mailto:administracao@integraldental.com.br"
+                  href="mailto:contato@integraldental.com.br"
                   className="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl hover:bg-primary/5 transition-all group"
                 >
                   <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -1030,7 +1030,7 @@ const LandingPage1 = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600 mb-1">E-mail</p>
-                    <p className="text-lg font-black text-gray-900 break-all">administracao@integraldental.com.br</p>
+                    <p className="text-lg font-black text-gray-900 break-all">contato@integraldental.com.br</p>
                   </div>
                 </a>
               </div>
