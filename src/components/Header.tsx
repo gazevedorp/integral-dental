@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Menu, X, ChevronDown, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import iconWhatsApp from '../assets/icon-whatsapp.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -371,7 +372,7 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
               className="btn-premium text-white px-7 py-3 rounded-xl font-bold text-small shadow-glass hover:shadow-glass-lg transition-smooth flex items-center gap-2"
             >
-              <img src="/src/assets/icon-whatsapp.png" alt="WhatsApp" className="w-4 h-4" />
+              <img src={iconWhatsApp} alt="WhatsApp" className="w-4 h-4" />
               Solicitar Proposta
             </motion.a>
           </div>
@@ -460,7 +461,7 @@ const Header = () => {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-xl font-bold shadow-lg"
               >
-                <img src="/src/assets/icon-whatsapp.png" alt="WhatsApp" className="w-4 h-4" />
+                <img src={iconWhatsApp} alt="WhatsApp" className="w-4 h-4" />
                 Solicitar Proposta
               </a>
             </div>

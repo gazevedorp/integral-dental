@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Phone, Mail } from 'lucide-react';
+import iconWhatsApp from '../assets/icon-whatsapp.png';
 
 const Footer = () => {
   return (
@@ -51,7 +52,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-green-500 hover:bg-green-600 rounded-lg flex items-center justify-center transition-all"
               >
-                <img src="/src/assets/icon-whatsapp.png" alt="WhatsApp" className="w-5 h-5" />
+                <img src={iconWhatsApp} alt="WhatsApp" className="w-5 h-5" />
               </motion.a>
             </div>
           </div>
