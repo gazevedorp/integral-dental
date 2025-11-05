@@ -8,7 +8,7 @@ import FAQSection from '../components/FAQSection';
 const Home = () => {
   const [currentImageSlide, setCurrentImageSlide] = useState(0);
   const [openIDSS, setOpenIDSS] = useState<number | null>(null);
-  const [selectedPlanCategory, setSelectedPlanCategory] = useState<'empresarial' | 'pme' | 'individual' | 'especiais'>('empresarial');
+  const [selectedPlanCategory, setSelectedPlanCategory] = useState<'empresarial' | 'pme' | 'individual' | 'especiais'>('individual');
 
   const heroImages = [
     'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&h=700&q=80',
