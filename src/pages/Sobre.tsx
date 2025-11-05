@@ -57,7 +57,7 @@ const Sobre = () => {
             </motion.div>
 
             <h1 className="text-h1 font-black text-gray-900 mb-6">
-              Mais de 35 anos cuidando do seu{' '}
+              Desde 1990 cuidando do seu{' '}
               <span className="gradient-text">sorriso</span>
             </h1>
 
