@@ -55,7 +55,7 @@ const Header = () => {
   const menuItems = [
     { label: 'Quem Somos', href: '/sobre' },
     { label: 'Planos', href: '/#planos' },
-    { label: 'Últimas Notícias', href: '#', disabled: true },
+    { label: 'Notícias', href: '#', disabled: true },
     { label: 'Contato', href: '/#contato' },
     { label: 'FAQ', href: '/duvidas' },
   ];

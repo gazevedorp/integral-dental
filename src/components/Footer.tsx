@@ -76,7 +76,7 @@ const Footer = () => {
               </li>
               <li>
                 <span className="text-body text-gray-500 opacity-50 cursor-not-allowed inline-block" title="Em breve">
-                  Últimas Notícias
+                  Notícias
                 </span>
               </li>
               <li>
