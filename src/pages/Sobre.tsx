@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Award, Target, Heart, Users, Building2, MapPin, Phone, Mail, Handshake } from 'lucide-react';
+import { Award, Target, Heart, Users, Building2, MapPin, Phone, Mail } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
