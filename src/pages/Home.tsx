@@ -341,11 +341,11 @@ const Home = () => {
                   >
                     <div className="flex items-start gap-2 lg:gap-3">
                       <div className="bg-primary/10 p-2 lg:p-3 rounded-xl">
-                        <Award className="w-6 lg:w-8 h-6 lg:h-8 text-primary" />
+                        <Users className="w-6 lg:w-8 h-6 lg:h-8 text-primary" />
                       </div>
                       <div>
-                        <div className="text-xs lg:text-sm font-semibold text-gray-900">Certificada ANS</div>
-                        <div className="text-[10px] lg:text-xs text-gray-600 mt-1">Excelência garantida</div>
+                        <div className="text-xs lg:text-sm font-semibold text-gray-900">Plano Individual/Familiar</div>
+                        <div className="text-[10px] lg:text-xs text-gray-600 mt-1">Para você e sua família</div>
                       </div>
                     </div>
                   </motion.div>
@@ -356,13 +356,15 @@ const Home = () => {
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                     className="hidden md:block absolute -right-4 lg:-right-8 bottom-20 bg-white p-4 lg:p-5 rounded-2xl shadow-2xl"
                   >
-                    <div className="flex gap-1 mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 lg:w-4 h-3 lg:h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
+                    <div className="flex items-start gap-2 lg:gap-3">
+                      <div className="bg-primary/10 p-2 lg:p-3 rounded-xl">
+                        <Shield className="w-6 lg:w-8 h-6 lg:h-8 text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-xs lg:text-sm font-semibold text-gray-900">Plano Empresarial</div>
+                        <div className="text-[10px] lg:text-xs text-gray-600 mt-1">Benefício corporativo</div>
+                      </div>
                     </div>
-                    <p className="text-xs lg:text-sm font-semibold text-gray-900">4.9/5.0</p>
-                    <p className="text-[10px] lg:text-xs text-gray-600">Avaliação dos clientes</p>
                   </motion.div>
                 </div>
               </motion.div>
@@ -583,6 +585,28 @@ const Home = () => {
                     </div>
                   </motion.div>
                 ))}
+              </motion.div>
+            )}
+
+            {/* Saiba Mais Button for Empresarial */}
+            {selectedPlanCategory === 'empresarial' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex justify-center mt-8"
+              >
+                <motion.a
+                  href="https://www.integraldental.com.br/empresarial/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white border-2 border-primary text-primary rounded-xl font-bold text-lg hover:bg-primary hover:text-white transition-all shadow-lg hover:shadow-xl"
+                >
+                  Saiba Mais
+                  <ArrowRight className="w-5 h-5" />
+                </motion.a>
               </motion.div>
             )}
 
@@ -1541,6 +1565,46 @@ const Home = () => {
                 </motion.button>
               </form>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners/Certifications Section - Logos */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto items-center">
+            {/* ANS Logo */}
+            <div className="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-8 md:p-10 h-full flex items-center justify-center">
+              <div className="relative w-full h-32 flex items-center justify-center">
+                <img
+                  src="/ans.png"
+                  alt="ANS - Agência Nacional de Saúde Suplementar"
+                  className="max-w-full max-h-full object-contain filter brightness-0 invert"
+                />
+              </div>
+            </div>
+
+            {/* CROSP Logo */}
+            <div className="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-8 md:p-10 h-full flex items-center justify-center">
+              <div className="relative w-full h-32 flex items-center justify-center">
+                <img
+                  src="/crosp.png"
+                  alt="CROSP - Conselho Regional de Odontologia de São Paulo"
+                  className="max-w-full max-h-full object-contain filter brightness-0 invert"
+                />
+              </div>
+            </div>
+
+            {/* SINOG Logo */}
+            <div className="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-8 md:p-10 h-full flex items-center justify-center">
+              <div className="relative w-full h-32 flex items-center justify-center">
+                <img
+                  src="/sinog.png"
+                  alt="SINOG - Sindicato das Empresas de Odontologia de Grupo"
+                  className="max-w-full max-h-full object-contain filter brightness-0 invert"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
