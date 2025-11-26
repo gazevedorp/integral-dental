@@ -75,9 +75,9 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <span className="text-body text-gray-500 opacity-50 cursor-not-allowed inline-block" title="Em breve">
+                <a href="/noticias" className="text-body text-gray-500 opacity-50 cursor-not-allowed inline-block">
                   Notícias
-                </span>
+                </a>
               </li>
               <li>
                 <a href="/#contato" className="text-body text-gray-400 hover:text-white hover:pl-2 transition-all inline-block">

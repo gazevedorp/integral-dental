@@ -12,10 +12,13 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { scrollY } = useScroll();
+
+  // Se não estiver na home, sempre usar fundo branco
+  const isHome = location.pathname === '/';
   const headerBg = useTransform(
     scrollY,
     [0, 100],
-    ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)']
+    isHome ? ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)'] : ['rgba(255, 255, 255, 0.95)', 'rgba(255, 255, 255, 0.95)']
   );
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const Header = () => {
   const menuItems = [
     { label: 'Quem Somos', href: '/sobre' },
     { label: 'Planos', href: '/#planos' },
-    { label: 'Notícias', href: '#', disabled: true },
+    { label: 'Notícias', href: '/noticias' },
     { label: 'Contato', href: '/#contato' },
     { label: 'FAQ', href: '/duvidas' },
   ];
@@ -288,7 +291,7 @@ const Header = () => {
       <motion.header
         style={{ backgroundColor: headerBg }}
         className={`fixed top-10 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled ? 'glass-card shadow-glass-lg' : ''
+          scrolled || !isHome ? 'glass-card shadow-glass-lg' : ''
         }`}
       >
       <div className="container mx-auto px-4 py-4">
@@ -310,31 +313,18 @@ const Header = () => {
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center gap-1">
             {menuItems.map((item, i) => (
-              item.disabled ? (
-                <motion.span
-                  key={item.label}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="text-gray-400 cursor-not-allowed font-medium relative px-4 py-2 rounded-xl opacity-50"
-                  title="Em breve"
-                >
-                  <span className="relative z-10">{item.label}</span>
-                </motion.span>
-              ) : (
-                <motion.a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="text-gray-700 hover:text-primary transition-colors font-medium relative group px-4 py-2 rounded-xl hover:bg-primary/5"
-                >
-                  <span className="relative z-10">{item.label}</span>
-                  <span className="absolute bottom-1 left-4 w-0 h-0.5 bg-gradient-to-r from-primary to-primary-dark group-hover:w-[calc(100%-2rem)] transition-all duration-300 rounded-full" />
-                </motion.a>
-              )
+              <motion.a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="text-gray-700 hover:text-primary transition-colors font-medium relative group px-4 py-2 rounded-xl hover:bg-primary/5"
+              >
+                <span className="relative z-10">{item.label}</span>
+                <span className="absolute bottom-1 left-4 w-0 h-0.5 bg-gradient-to-r from-primary to-primary-dark group-hover:w-[calc(100%-2rem)] transition-all duration-300 rounded-full" />
+              </motion.a>
             ))}
           </nav>
 
@@ -396,26 +386,16 @@ const Header = () => {
             className="lg:hidden mt-4 pb-4 space-y-2 bg-white rounded-2xl shadow-lg border border-gray-100 p-4"
           >
             {menuItems.map((item) => (
-              item.disabled ? (
-                <span
-                  key={item.label}
-                  className="block py-3 px-4 text-gray-400 rounded-xl font-semibold opacity-50 cursor-not-allowed"
-                  title="Em breve"
-                >
-                  {item.label}
-                </span>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => {
-                    handleNavClick(e, item.href);
-                  }}
-                  className="block py-3 px-4 text-gray-700 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors font-semibold"
-                >
-                  {item.label}
-                </a>
-              )
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => {
+                  handleNavClick(e, item.href);
+                }}
+                className="block py-3 px-4 text-gray-700 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors font-semibold"
+              >
+                {item.label}
+              </a>
             ))}
             <div className="pt-4 space-y-3">
               {/* Social Media - Mobile */}
