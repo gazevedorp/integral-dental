@@ -75,7 +75,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/noticias" className="text-body text-gray-500 opacity-50 cursor-not-allowed inline-block">
+                <a href="/noticias" className="text-body text-gray-400 hover:text-white hover:pl-2 transition-all inline-block">
                   Notícias
                 </a>
               </li>

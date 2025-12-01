@@ -70,7 +70,7 @@ const NewsSection = () => {
             <Loader2 className="w-12 h-12 text-primary animate-spin" />
           </div>
         ) : (
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {news.map((item, index) => (
               <motion.article
                 key={item.id}
@@ -105,7 +105,7 @@ const NewsSection = () => {
                         {formatDate(item.published_at)}
                       </span>
 
-                      <h3 className="text-h3 font-black text-gray-900 mb-4 group-hover:text-primary transition-colors line-clamp-2">
+                      <h3 className="text-xl font-black text-gray-900 mb-4 group-hover:text-primary transition-colors line-clamp-4">
                         {item.title}
                       </h3>
 

@@ -61,7 +61,7 @@ const News = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20"
+            className="text-center max-w-5xl mx-auto mb-12 md:mb-16 lg:mb-20"
           >
             <div className="inline-flex items-center gap-2 bg-primary/10 px-5 py-2 rounded-full mb-6">
               <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,7 +114,7 @@ const News = () => {
 
           {/* News Grid */}
           {!loading && !error && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
               {news.map((item, index) => (
                 <motion.article
                   key={item.id}
@@ -157,7 +157,7 @@ const News = () => {
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-h3 font-black text-gray-900 mb-4 group-hover:text-primary transition-colors line-clamp-2">
+                        <h2 className="text-lg font-black text-gray-900 mb-4 group-hover:text-primary transition-colors line-clamp-4">
                           {item.title}
                         </h2>
 

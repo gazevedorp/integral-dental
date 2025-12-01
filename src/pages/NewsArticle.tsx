@@ -56,8 +56,8 @@ const NewsArticle = () => {
   const formatContent = (content: string) => {
     // Convert markdown-style headers to HTML
     let formatted = content
-      .replace(/^## (.+)$/gm, '<h2 class="text-h2 font-black text-gray-900 mt-12 mb-6 first:mt-0">$1</h2>')
-      .replace(/^### (.+)$/gm, '<h3 class="text-h3 font-bold text-gray-900 mt-8 mb-4">$1</h3>');
+      .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-black text-gray-900 mt-4 mb-3 first:mt-0">$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold text-gray-900 mt-3 mb-2">$1</h3>');
 
     // Convert bullet points to list items
     formatted = formatted.replace(/^• (.+)$/gm, '<li class="ml-6 mb-2">$1</li>');
@@ -157,24 +157,27 @@ const NewsArticle = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto mb-12"
           >
-            {/* Category Badge */}
-            <div className="inline-flex items-center gap-2 bg-primary/10 px-5 py-2 rounded-full mb-6">
-              <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-              <span className="text-sm font-bold text-primary">Notícia</span>
-            </div>
+            {/* Category Badge and Date Row */}
+            <div className="flex items-center justify-between mb-6">
+              {/* Date */}
+              <div className="flex items-center gap-2 text-sm font-bold text-gray-500">
+                <Calendar className="w-5 h-5" />
+                <time dateTime={article.published_at}>
+                  {formatDate(article.published_at)}
+                </time>
+              </div>
 
-            {/* Date */}
-            <div className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-6">
-              <Calendar className="w-5 h-5" />
-              <time dateTime={article.published_at}>
-                {formatDate(article.published_at)}
-              </time>
+              {/* Category Badge */}
+              <div className="inline-flex items-center gap-2 bg-primary/10 px-5 py-2 rounded-full">
+                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+                <span className="text-sm font-bold text-primary">Notícia</span>
+              </div>
             </div>
 
             {/* Title */}
-            <h1 className="text-h1 font-black text-gray-900 mb-8 leading-tight">
+            <h1 className="text-5xl font-black text-gray-900 mb-8 leading-tight">
               {article.title}
             </h1>
 
