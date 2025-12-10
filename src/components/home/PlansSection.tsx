@@ -19,7 +19,7 @@ const PlansSection = () => {
           'Tratamentos de canal, extrações e radiografias',
           'Atendimento em clínicas credenciadas Integral Dental',
           'Adesão simplificada com inclusão de dependentes',
-          'Planos sem coparticipação'
+          '<b>Planos sem coparticipação</b>'
         ],
         highlight: 'Ideal para empresas que valorizam a qualidade e desejam um benefício completo.'
       },
@@ -85,9 +85,9 @@ const PlansSection = () => {
           '156 procedimentos odontológicos',
           'Consultas, urgências, restaurações e limpezas',
           'Aplicação de flúor, selante e remoção de tártaro',
-          'Sem coparticipação em tratamentos de canal',
-          'Sem coparticipação em extrações de sisos',
-          'Sem coparticipação em radiografias panorâmicas',
+          '<b>Sem coparticipação em tratamentos de canal</b>',
+          '<b>Sem coparticipação em extrações de sisos</b>',
+          '<b>Sem coparticipação em radiografias panorâmicas</b>',
           'Descontos progressivos por número de dependentes'
         ],
         highlight: 'Ideal para famílias que valorizam prevenção, estética e segurança.'
@@ -302,7 +302,7 @@ const PlansSection = () => {
                         {plan.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-small text-gray-700">{feature}</span>
+                            <span className="text-small text-gray-700" dangerouslySetInnerHTML={{ __html: feature }} />
                           </li>
                         ))}
                       </ul>
@@ -398,7 +398,7 @@ const PlansSection = () => {
                         {plan.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-small text-gray-700">{feature}</span>
+                            <span className="text-small text-gray-700" dangerouslySetInnerHTML={{ __html: feature }} />
                           </li>
                         ))}
                       </ul>
@@ -501,7 +501,7 @@ const PlansSection = () => {
                         {plan.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-small text-gray-700">{feature}</span>
+                            <span className="text-small text-gray-700" dangerouslySetInnerHTML={{ __html: feature }} />
                           </li>
                         ))}
                       </ul>
@@ -597,7 +597,7 @@ const PlansSection = () => {
                         {plan.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-small text-gray-700">{feature}</span>
+                            <span className="text-small text-gray-700" dangerouslySetInnerHTML={{ __html: feature }} />
                           </li>
                         ))}
                       </ul>
