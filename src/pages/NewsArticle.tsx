@@ -53,32 +53,6 @@ const NewsArticle = () => {
     });
   };
 
-  const formatContent = (content: string) => {
-    // Convert markdown-style headers to HTML
-    let formatted = content
-      .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-black text-gray-900 mt-4 mb-3 first:mt-0">$1</h2>')
-      .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold text-gray-900 mt-3 mb-2">$1</h3>');
-
-    // Convert bullet points to list items
-    formatted = formatted.replace(/^• (.+)$/gm, '<li class="ml-6 mb-2">$1</li>');
-
-    // Wrap consecutive list items in ul tags
-    formatted = formatted.replace(/(<li class="ml-6 mb-2">.+<\/li>\n?)+/g, '<ul class="list-disc mb-6 space-y-2 text-gray-700">$&</ul>');
-
-    // Convert paragraphs (text blocks separated by double newlines)
-    const paragraphs = formatted.split('\n\n');
-    formatted = paragraphs
-      .map(p => {
-        if (p.startsWith('<h') || p.startsWith('<ul')) {
-          return p;
-        }
-        return `<p class="mb-6 leading-relaxed text-gray-700 text-lg">${p.replace(/\n/g, '<br/>')}</p>`;
-      })
-      .join('\n');
-
-    return formatted;
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -214,9 +188,60 @@ const NewsArticle = () => {
             className="max-w-4xl mx-auto"
           >
             <div className="glass-card rounded-3xl p-8 md:p-12 shadow-glass-lg">
+              <style dangerouslySetInnerHTML={{ __html: `
+                .article-content h2 {
+                  font-size: 1.875rem;
+                  font-weight: 900;
+                  color: #111827;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  line-height: 1.3;
+                }
+                .article-content h2:first-child {
+                  margin-top: 0;
+                }
+                .article-content h3 {
+                  font-size: 1.5rem;
+                  font-weight: 800;
+                  color: #111827;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                  line-height: 1.4;
+                }
+                .article-content p {
+                  font-size: 1.125rem;
+                  line-height: 1.75;
+                  color: #374151;
+                  margin-bottom: 1.5rem;
+                }
+                .article-content ul {
+                  margin-top: 1.5rem;
+                  margin-bottom: 1.5rem;
+                  list-style-type: disc;
+                  padding-left: 1.5rem;
+                }
+                .article-content li {
+                  font-size: 1.125rem;
+                  line-height: 1.75;
+                  color: #374151;
+                  margin-bottom: 0.5rem;
+                }
+                .article-content strong {
+                  font-weight: 700;
+                  color: #111827;
+                }
+                .article-content a {
+                  color: #007b83;
+                  font-weight: 600;
+                  text-decoration: underline;
+                }
+                .article-content a:hover {
+                  color: #004d52;
+                }
+              ` }} />
               <div
                 className="article-content"
-                dangerouslySetInnerHTML={{ __html: formatContent(article.content) }}
+                dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </div>
           </motion.div>

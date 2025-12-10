@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Users, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Users, Shield, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import type { LucideIcon } from 'lucide-react';
@@ -159,7 +159,14 @@ const HeroSection = () => {
               <div className="relative">
                 <div className="absolute -inset-2 md:-inset-4 bg-gradient-to-br from-primary to-primary-dark rounded-2xl md:rounded-3xl opacity-20 blur-2xl" />
                 <div className="relative bg-white rounded-2xl md:rounded-3xl p-1 md:p-2 shadow-2xl overflow-hidden">
-                  {!loading && heroImages.length > 0 && (
+                  {loading ? (
+                    <div className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                      <div className="flex flex-col items-center gap-4">
+                        <Loader2 className="w-12 h-12 text-primary animate-spin" />
+                        <p className="text-sm font-medium text-gray-600">Carregando imagens...</p>
+                      </div>
+                    </div>
+                  ) : heroImages.length > 0 ? (
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={currentImageSlide}
@@ -172,6 +179,10 @@ const HeroSection = () => {
                         className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover"
                       />
                     </AnimatePresence>
+                  ) : (
+                    <div className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary-dark/5">
+                      <p className="text-sm font-medium text-gray-500">Nenhuma imagem disponível</p>
+                    </div>
                   )}
                 </div>
 
