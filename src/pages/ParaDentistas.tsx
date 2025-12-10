@@ -9,22 +9,22 @@ const ParaDentistas = () => {
     {
       title: 'Manual do Credenciado',
       description: 'Guia completo para profissionais credenciados',
-      url: 'http://integraldental.com.br/wp-content/uploads/2018/12/Manual_Credenciado.pdf'
+      url: 'https://eynaftxrboflndrhsaqi.supabase.co/storage/v1/object/public/downloads/manual-do-credenciado.pdf'
     },
     {
       title: 'Exame Periodontal Simplificado',
       description: 'Protocolo para exame periodontal',
-      url: 'http://integraldental.com.br/wp-content/uploads/2018/12/PSR_site.pdf'
+      url: 'https://eynaftxrboflndrhsaqi.supabase.co/storage/v1/object/public/downloads/exame-periodental-simplificado.pdf'
     },
     {
       title: 'Guia de Tratamento Odontológico',
       description: 'Diretrizes para tratamentos odontológicos',
-      url: 'http://integraldental.com.br/wp-content/uploads/2018/12/Guia_de_Tratamento_Odontologico_site.pdf'
+      url: 'https://eynaftxrboflndrhsaqi.supabase.co/storage/v1/object/public/downloads/guia-tratamento-odonto.pdf'
     },
     {
       title: 'Manual do Aplicativo Integral',
       description: 'Como utilizar o aplicativo para dentistas',
-      url: 'http://integraldental.com.br/wp-content/uploads/2018/12/manual_aplicativo_integral.pdf'
+      url: 'https://eynaftxrboflndrhsaqi.supabase.co/storage/v1/object/public/downloads/manual-aplicativo.pdf'
     }
   ];
 

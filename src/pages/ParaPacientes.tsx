@@ -9,12 +9,12 @@ const ParaPacientes = () => {
     {
       title: 'Manual de Contratação de Planos',
       description: 'Guia completo para contratar seu plano',
-      url: 'http://integraldental.com.br/wp-content/uploads/2018/12/manual_contratacao_planos__1_.pdf'
+      url: 'https://eynaftxrboflndrhsaqi.supabase.co/storage/v1/object/public/downloads/manual-contratacao-planos.pdf'
     },
     {
       title: 'Guia de Leitura Contratual',
       description: 'Entenda os termos do seu contrato',
-      url: 'http://integraldental.com.br/wp-content/uploads/2018/12/guia_leitura_contratual.pdf'
+      url: 'https://eynaftxrboflndrhsaqi.supabase.co/storage/v1/object/public/downloads/guia-leitura-contratual.pdf'
     }
   ];
 
