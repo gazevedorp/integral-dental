@@ -13,5 +13,6 @@ export interface HeroFloatingCard {
   description: string;
   icon_name: string;
   position: string;
+  link: string | null;
   created_at: string;
 }

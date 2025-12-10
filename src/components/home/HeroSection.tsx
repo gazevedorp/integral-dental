@@ -1,5 +1,17 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Users, Shield, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import {
+  ArrowRight, Users, Shield, ChevronLeft, ChevronRight, Loader2, Heart, Star,
+  Clock,
+  Award,
+  CheckCircle,
+  Phone,
+  MapPin,
+  Calendar,
+  Stethoscope,
+  Smile,
+  ThumbsUp,
+  Sparkles,
+} from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import type { LucideIcon } from 'lucide-react';
@@ -8,6 +20,18 @@ import type { HeroImage, HeroFloatingCard } from '../../types/hero';
 const iconMap: Record<string, LucideIcon> = {
   Users,
   Shield,
+  Heart,
+  Star,
+  Clock,
+  Award,
+  CheckCircle,
+  Phone,
+  MapPin,
+  Calendar,
+  Stethoscope,
+  Smile,
+  ThumbsUp,
+  Sparkles,
 };
 
 const HeroSection = () => {
@@ -149,85 +173,105 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Visual Element - Image Carousel */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative mt-8 lg:mt-0"
-            >
-              {/* Main Image Carousel with Modern Frame */}
-              <div className="relative">
-                <div className="absolute -inset-2 md:-inset-4 bg-gradient-to-br from-primary to-primary-dark rounded-2xl md:rounded-3xl opacity-20 blur-2xl" />
-                <div className="relative bg-white rounded-2xl md:rounded-3xl p-1 md:p-2 shadow-2xl overflow-hidden">
-                  {loading ? (
-                    <div className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-                      <div className="flex flex-col items-center gap-4">
-                        <Loader2 className="w-12 h-12 text-primary animate-spin" />
-                        <p className="text-sm font-medium text-gray-600">Carregando imagens...</p>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative mt-8 lg:mt-0"
+          >
+            {/* Main Image Carousel with Modern Frame */}
+            <div className="relative">
+              <div className="absolute -inset-2 md:-inset-4 bg-gradient-to-br from-primary to-primary-dark rounded-2xl md:rounded-3xl opacity-20 blur-2xl" />
+              <div className="relative bg-white rounded-2xl md:rounded-3xl p-1 md:p-2 shadow-2xl overflow-hidden">
+                {loading ? (
+                  <div className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                    <div className="flex flex-col items-center gap-4">
+                      <Loader2 className="w-12 h-12 text-primary animate-spin" />
+                      <p className="text-sm font-medium text-gray-600">Carregando imagens...</p>
+                    </div>
+                  </div>
+                ) : heroImages.length > 0 ? (
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImageSlide}
+                      src={heroImages[currentImageSlide].image_url}
+                      alt={heroImages[currentImageSlide].alt_text || 'Integral Dental'}
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5 }}
+                      className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+                    />
+                  </AnimatePresence>
+                ) : (
+                  <div className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary-dark/5">
+                    <p className="text-sm font-medium text-gray-500">Nenhuma imagem disponível</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Image Navigation Controls */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {heroImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageSlide(index)}
+                    className={`transition-all ${index === currentImageSlide
+                        ? 'w-8 h-2 bg-white'
+                        : 'w-2 h-2 bg-white/50 hover:bg-white/75'
+                      } rounded-full`}
+                    aria-label={`Ir para imagem ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevImageSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all hover:scale-110 z-10"
+                aria-label="Imagem anterior"
+              >
+                <ChevronLeft className="w-5 h-5 text-primary" />
+              </button>
+              <button
+                onClick={nextImageSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all hover:scale-110 z-10"
+                aria-label="Próxima imagem"
+              >
+                <ChevronRight className="w-5 h-5 text-primary" />
+              </button>
+
+              {/* Floating Cards - Hidden on small screens */}
+              {!loading && heroImages.length > 0 && floatingCards
+                .filter(card => card.hero_image_id === heroImages[currentImageSlide].id)
+                .map((card) => {
+                  const Icon = iconMap[card.icon_name];
+                  const isLeft = card.position === 'left';
+
+                  const cardContent = (
+                    <div className="flex items-start gap-2 lg:gap-3">
+                      <div className="bg-primary/10 p-2 lg:p-3 rounded-xl">
+                        <Icon className="w-6 lg:w-8 h-6 lg:h-8 text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-xs lg:text-sm font-semibold text-gray-900">{card.title}</div>
+                        <div className="text-[10px] lg:text-xs text-gray-600 mt-1">{card.description}</div>
                       </div>
                     </div>
-                  ) : heroImages.length > 0 ? (
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={currentImageSlide}
-                        src={heroImages[currentImageSlide].image_url}
-                        alt={heroImages[currentImageSlide].alt_text || 'Integral Dental'}
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.5 }}
-                        className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover"
-                      />
-                    </AnimatePresence>
-                  ) : (
-                    <div className="rounded-xl md:rounded-2xl w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary-dark/5">
-                      <p className="text-sm font-medium text-gray-500">Nenhuma imagem disponível</p>
-                    </div>
-                  )}
-                </div>
+                  );
 
-                {/* Image Navigation Controls */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                  {heroImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageSlide(index)}
-                      className={`transition-all ${
-                        index === currentImageSlide
-                          ? 'w-8 h-2 bg-white'
-                          : 'w-2 h-2 bg-white/50 hover:bg-white/75'
-                      } rounded-full`}
-                      aria-label={`Ir para imagem ${index + 1}`}
-                    />
-                  ))}
-                </div>
+                  const baseClassName = `hidden md:block absolute ${isLeft
+                      ? '-left-4 lg:-left-8 top-1/4 -translate-y-1/2 max-w-[160px] lg:max-w-[250px]'
+                      : '-right-4 lg:-right-8 bottom-20'
+                    } bg-white p-4 lg:p-${isLeft ? '6' : '5'} rounded-2xl shadow-2xl`;
 
-                {/* Navigation Arrows */}
-                <button
-                  onClick={prevImageSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all hover:scale-110 z-10"
-                  aria-label="Imagem anterior"
-                >
-                  <ChevronLeft className="w-5 h-5 text-primary" />
-                </button>
-                <button
-                  onClick={nextImageSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all hover:scale-110 z-10"
-                  aria-label="Próxima imagem"
-                >
-                  <ChevronRight className="w-5 h-5 text-primary" />
-                </button>
-
-                {/* Floating Cards - Hidden on small screens */}
-                {!loading && heroImages.length > 0 && floatingCards
-                  .filter(card => card.hero_image_id === heroImages[currentImageSlide].id)
-                  .map((card) => {
-                    const Icon = iconMap[card.icon_name];
-                    const isLeft = card.position === 'left';
-
+                  if (card.link) {
                     return (
-                      <motion.div
+                      <motion.a
                         key={card.id}
+                        href={card.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         animate={{ y: [0, isLeft ? -15 : 15, 0] }}
                         transition={{
                           duration: isLeft ? 4 : 5,
@@ -235,26 +279,33 @@ const HeroSection = () => {
                           ease: "easeInOut",
                           delay: isLeft ? 0 : 1
                         }}
-                        className={`hidden md:block absolute ${
-                          isLeft
-                            ? '-left-4 lg:-left-8 top-1/4 -translate-y-1/2 max-w-[160px] lg:max-w-[250px]'
-                            : '-right-4 lg:-right-8 bottom-20'
-                        } bg-white p-4 lg:p-${isLeft ? '6' : '5'} rounded-2xl shadow-2xl`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`${baseClassName} cursor-pointer hover:shadow-3xl transition-shadow`}
                       >
-                        <div className="flex items-start gap-2 lg:gap-3">
-                          <div className="bg-primary/10 p-2 lg:p-3 rounded-xl">
-                            <Icon className="w-6 lg:w-8 h-6 lg:h-8 text-primary" />
-                          </div>
-                          <div>
-                            <div className="text-xs lg:text-sm font-semibold text-gray-900">{card.title}</div>
-                            <div className="text-[10px] lg:text-xs text-gray-600 mt-1">{card.description}</div>
-                          </div>
-                        </div>
-                      </motion.div>
+                        {cardContent}
+                      </motion.a>
                     );
-                  })}
-              </div>
-            </motion.div>
+                  }
+
+                  return (
+                    <motion.div
+                      key={card.id}
+                      animate={{ y: [0, isLeft ? -15 : 15, 0] }}
+                      transition={{
+                        duration: isLeft ? 4 : 5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: isLeft ? 0 : 1
+                      }}
+                      className={baseClassName}
+                    >
+                      {cardContent}
+                    </motion.div>
+                  );
+                })}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
