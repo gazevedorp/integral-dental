@@ -1,15 +1,61 @@
 import { motion } from 'framer-motion';
-import { MessageSquare, Phone, Mail, Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import { MessageSquare, Phone, Mail, Clock, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
+import { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
+import { sendEmail } from '../utils/sendEmail';
 
 const CanalEtico = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const responsabilidades = [
     'Receber demandas (reclamações, consultas, sugestões e elogios) relacionadas ao desempenho das diversas áreas da Integral',
     'Propor recomendações para promover qualidade e eficiência',
     'Exercer o acompanhamento das ações e do desempenho da Integral'
   ];
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      nome: formData.get('nome') as string,
+      email: formData.get('email') as string,
+      telefone: formData.get('telefone') as string,
+      tipo: formData.get('tipo') as string,
+      mensagem: formData.get('mensagem') as string,
+    };
+
+    try {
+      const result = await sendEmail({
+        formType: 'canalEtico',
+        data,
+      });
+
+      if (result.success) {
+        setSubmitStatus('success');
+        form.reset();
+        // Limpa a mensagem de sucesso após 5 segundos
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(result.error || 'Erro ao enviar manifestação');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setErrorMessage('Erro inesperado. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -218,7 +264,7 @@ const CanalEtico = () => {
             </div>
 
             <div className="bg-gradient-to-br from-gray-50 to-white p-8 md:p-10 rounded-3xl border-2 border-gray-100">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="nome" className="block text-sm font-bold text-gray-900 mb-2">
@@ -295,14 +341,56 @@ const CanalEtico = () => {
                   />
                 </div>
 
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-3 p-4 bg-green-50 border-2 border-green-200 rounded-xl"
+                  >
+                    <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+                    <p className="text-sm font-semibold text-green-800">
+                      Manifestação enviada com sucesso! Retornaremos em até 7 dias úteis.
+                    </p>
+                  </motion.div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-3 p-4 bg-red-50 border-2 border-red-200 rounded-xl"
+                  >
+                    <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0" />
+                    <p className="text-sm font-semibold text-red-800">
+                      {errorMessage}
+                    </p>
+                  </motion.div>
+                )}
+
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-5 rounded-xl font-black text-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+                  disabled={isSubmitting}
+                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  className={`w-full bg-gradient-to-r from-primary to-primary-dark text-white py-5 rounded-xl font-black text-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2 ${
+                    isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
                 >
-                  Enviar Manifestação
-                  <ArrowRight className="w-5 h-5" />
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      Enviar Manifestação
+                      <ArrowRight className="w-5 h-5" />
+                    </>
+                  )}
                 </motion.button>
 
                 <p className="text-sm text-gray-500 text-center">
