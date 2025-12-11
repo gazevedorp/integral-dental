@@ -261,9 +261,9 @@ const HeroSection = () => {
                   );
 
                   const baseClassName = `hidden md:block absolute ${isLeft
-                      ? '-left-4 lg:-left-8 top-1/4 -translate-y-1/2 max-w-[160px] lg:max-w-[250px]'
-                      : '-right-4 lg:-right-8 bottom-20'
-                    } bg-white p-4 lg:p-${isLeft ? '6' : '5'} rounded-2xl shadow-2xl`;
+                      ? '-left-4 lg:-left-8 top-1/4 -translate-y-1/2 max-w-[160px] lg:max-w-[250px] bg-white p-4 lg:p-6 rounded-2xl shadow-2xl'
+                      : '-right-4 lg:-right-8 bottom-20 bg-white p-4 lg:p-5 rounded-2xl shadow-2xl'
+                    }`;
 
                   if (card.link) {
                     return (

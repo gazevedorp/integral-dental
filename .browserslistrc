@@ -1,0 +1,28 @@
+# Browserslist configuration for Integral Dental
+# Define quais navegadores o projeto deve suportar
+
+# Navegadores com mais de 0.5% de uso no mercado brasileiro
+> 0.5% in BR
+
+# Últimas 2 versões de cada navegador principal
+last 2 versions
+
+# Firefox ESR (Extended Support Release) - usado por empresas
+Firefox ESR
+
+# Apenas navegadores ainda mantidos/atualizados
+not dead
+
+# NÃO suportar Internet Explorer 11
+not IE 11
+
+# Versões mínimas específicas para mobile (crítico no Brasil)
+iOS >= 12
+Safari >= 12
+Android >= 6
+Chrome >= 80
+Firefox >= 78
+Edge >= 88
+
+# Samsung Internet (popular em dispositivos Samsung)
+Samsung >= 10

@@ -1,3 +1,4 @@
+/* Fonte Montserrat com display=swap para evitar FOUT (Flash of Unstyled Text) */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -104,8 +105,19 @@
 }
 
 @layer utilities {
+  /* Removido text-wrap: balance por compatibilidade limitada
+     Navegadores antigos não suportam e pode causar problemas de layout */
   .text-balance {
-    text-wrap: balance;
+    /* Fallback para navegadores sem suporte */
+    max-width: 60ch;
+  }
+
+  /* Para navegadores que suportam text-wrap: balance */
+  @supports (text-wrap: balance) {
+    .text-balance {
+      text-wrap: balance;
+      max-width: none;
+    }
   }
 
   /* Text Shadow Utilities */
