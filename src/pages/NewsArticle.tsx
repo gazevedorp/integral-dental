@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase';
 import type { News } from '../types/news';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 
 const NewsArticle = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -102,7 +103,50 @@ const NewsArticle = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title={article.title}
+        description={article.summary}
+        image={article.image_url || 'https://www.integraldental.com.br/logo-integral-dental.png'}
+        url={`https://www.integraldental.com.br/noticias/${article.slug}`}
+        type="article"
+        article={{
+          publishedTime: article.published_at,
+          section: 'Notícias',
+          author: 'Integral Dental',
+        }}
+        keywords={`${article.title}, notícias integral dental, saúde bucal, odontologia`}
+      />
       <Header />
+
+      {/* Schema.org JSON-LD para o artigo */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          "headline": article.title,
+          "description": article.summary,
+          "image": article.image_url || 'https://www.integraldental.com.br/logo-integral-dental.png',
+          "datePublished": article.published_at,
+          "dateModified": article.updated_at || article.published_at,
+          "author": {
+            "@type": "Organization",
+            "name": "Integral Dental",
+            "url": "https://www.integraldental.com.br"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Integral Dental",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.integraldental.com.br/logo-integral-dental.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://www.integraldental.com.br/noticias/${article.slug}`
+          }
+        })}
+      </script>
 
       <article className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         {/* Background Pattern */}

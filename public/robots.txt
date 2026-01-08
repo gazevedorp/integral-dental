@@ -1,0 +1,22 @@
+# robots.txt para Integral Dental
+# https://www.integraldental.com.br
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.integraldental.com.br/sitemap.xml
+
+# Permitir crawling de todas as páginas públicas
+Allow: /sobre
+Allow: /duvidas
+Allow: /canal-etico
+Allow: /downloads
+Allow: /para-dentistas
+Allow: /para-pacientes
+Allow: /noticias
+Allow: /noticias/*
+Allow: /plano-empresarial
+Allow: /plano-pme
+Allow: /plano-individual
+Allow: /planos-especiais

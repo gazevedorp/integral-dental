@@ -1,13 +1,32 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import type { News } from '../../types/news';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const NewsSection = () => {
   const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: 'start',
+      skipSnaps: false,
+    },
+    [Autoplay({ delay: 5000, stopOnInteraction: true })]
+  );
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -18,7 +37,7 @@ const NewsSection = () => {
           .from('news')
           .select('*')
           .order('published_at', { ascending: false })
-          .limit(3);
+          .limit(5);
 
         if (error) throw error;
 
@@ -70,60 +89,84 @@ const NewsSection = () => {
             <Loader2 className="w-12 h-12 text-primary animate-spin" />
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-            {news.map((item, index) => (
-              <motion.article
-                key={item.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="group cursor-pointer"
-              >
-                <Link to={`/noticias/${item.slug}`}>
-                  <div className="glass-card rounded-3xl overflow-hidden h-full hover:shadow-glass-lg transition-all">
-                    {/* Image */}
-                    <div className="relative h-56 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-                      {item.image_url ? (
-                        <img
-                          src={item.image_url}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
-                          <span className="text-6xl">📰</span>
+          <div className="relative max-w-7xl mx-auto">
+            {/* Carousel Container */}
+            <div className="overflow-hidden" ref={emblaRef}>
+              <div className="flex gap-6">
+                {news.map((item, index) => (
+                  <motion.article
+                    key={item.id}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
+                  >
+                    <Link to={`/noticias/${item.slug}`} className="block h-full group">
+                      <div className="glass-card rounded-3xl overflow-hidden h-full hover:shadow-glass-lg transition-all transform group-hover:-translate-y-2">
+                        {/* Image */}
+                        <div className="relative h-56 overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+                          {item.image_url ? (
+                            <img
+                              src={item.image_url}
+                              alt={item.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
+                              <span className="text-6xl">📰</span>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
 
-                    {/* Content */}
-                    <div className="p-8">
-                      <span className="text-sm font-bold text-gray-500 mb-4 block">
-                        {formatDate(item.published_at)}
-                      </span>
+                        {/* Content */}
+                        <div className="p-8">
+                          <span className="text-sm font-bold text-gray-500 mb-4 block">
+                            {formatDate(item.published_at)}
+                          </span>
 
-                      <h3 className="text-xl font-black text-gray-900 mb-4 group-hover:text-primary transition-colors line-clamp-4">
-                        {item.title}
-                      </h3>
+                          <h3 className="text-xl font-black text-gray-900 mb-4 group-hover:text-primary transition-colors line-clamp-2">
+                            {item.title}
+                          </h3>
 
-                      <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
-                        {item.summary}
-                      </p>
+                          <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+                            {item.summary}
+                          </p>
 
-                      <div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-3 transition-all">
-                        Ler mais
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
+                          <div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                            Ler mais
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
-            ))}
+                    </Link>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            {news.length > 1 && (
+              <>
+                <button
+                  onClick={scrollPrev}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                  aria-label="Notícia anterior"
+                >
+                  <ChevronLeft className="w-6 h-6 text-gray-800" />
+                </button>
+                <button
+                  onClick={scrollNext}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                  aria-label="Próxima notícia"
+                >
+                  <ChevronRight className="w-6 h-6 text-gray-800" />
+                </button>
+              </>
+            )}
           </div>
         )}
 
