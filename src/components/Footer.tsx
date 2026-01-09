@@ -38,7 +38,7 @@ const Footer = () => {
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1, y: -3 }}
-                href="https://www.instagram.com/integraldental_/"
+                href="https://www.instagram.com/integraldentaloficial/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-all"

@@ -344,7 +344,7 @@ const Header = () => {
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1, y: -2 }}
-                href="https://www.instagram.com/integraldental_/"
+                href="https://www.instagram.com/integraldentaloficial/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 bg-primary/10 hover:bg-primary rounded-lg flex items-center justify-center transition-all group"
