@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
 import { sendEmail } from '../utils/sendEmail';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const CanalEtico = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,6 +60,7 @@ const CanalEtico = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <Header />
 
       {/* Hero Section */}

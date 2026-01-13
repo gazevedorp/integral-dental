@@ -10,10 +10,12 @@ import IDSSSection from '../components/home/IDSSSection';
 import NewsSection from '../components/home/NewsSection';
 import ContactSection from '../components/home/ContactSection';
 import PartnersSection from '../components/home/PartnersSection';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const Home = () => {
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <Header />
 
       <HeroSection />

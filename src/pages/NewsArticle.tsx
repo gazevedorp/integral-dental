@@ -7,6 +7,7 @@ import type { News } from '../types/news';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const NewsArticle = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -57,6 +58,7 @@ const NewsArticle = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
+        <GoogleTagManager />
         <Header />
         <div className="flex flex-col justify-center items-center pt-40 pb-32">
           <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
@@ -70,6 +72,7 @@ const NewsArticle = () => {
   if (error || !article) {
     return (
       <div className="min-h-screen bg-white">
+        <GoogleTagManager />
         <Header />
         <div className="container mx-auto px-4 pt-40 pb-32">
           <motion.div
@@ -103,6 +106,7 @@ const NewsArticle = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <SEO
         title={article.title}
         description={article.summary}

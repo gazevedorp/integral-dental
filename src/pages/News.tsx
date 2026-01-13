@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase';
 import type { News as NewsType } from '../types/news';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const News = () => {
   const [news, setNews] = useState<NewsType[]>([]);
@@ -50,6 +51,7 @@ const News = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <Header />
 
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">

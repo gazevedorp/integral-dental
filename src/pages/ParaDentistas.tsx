@@ -3,6 +3,7 @@ import { Download, FileText, Stethoscope } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const ParaDentistas = () => {
   const dentistDocuments = [
@@ -30,6 +31,7 @@ const ParaDentistas = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <Header />
 
       {/* Hero Section */}

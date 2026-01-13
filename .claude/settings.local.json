@@ -4,7 +4,9 @@
       "Bash(npm run dev:*)",
       "Bash(npm run build:*)",
       "Bash(npm install:*)",
-      "Bash(node node_modules/tailwindcss/lib/cli.js:*)"
+      "Bash(node node_modules/tailwindcss/lib/cli.js:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Users, CheckCircle, ArrowRight, Briefcase, DollarSign, Heart, Star, Phone, Mail } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const PlanoPME = () => {
   const plan = {
@@ -55,6 +56,7 @@ const PlanoPME = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <Header />
 
       {/* Hero Section */}

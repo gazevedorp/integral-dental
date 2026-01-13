@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { supabase } from '../lib/supabase';
 import type { FAQCategory, FAQQuestion, FAQCategoryWithQuestions } from '../types/faq';
+import GoogleTagManager from '../components/GoogleTagManager';
 
 const Duvidas = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -50,6 +51,7 @@ const Duvidas = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <GoogleTagManager />
       <Header />
 
       {/* Hero Section */}
