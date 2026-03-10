@@ -23,6 +23,7 @@ export type FormType = "contact" | "canalEtico";
 interface SendEmailParams {
   formType: FormType;
   data: ContactFormData | CanalEticoFormData;
+  turnstileToken?: string;
 }
 
 interface SendEmailResponse {
@@ -57,6 +58,7 @@ export async function sendEmail(
         body: JSON.stringify({
           formType: params.formType,
           data: params.data,
+          turnstileToken: params.turnstileToken,
         }),
       }
     );

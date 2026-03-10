@@ -1,12 +1,22 @@
 import { motion } from 'framer-motion';
 import { Phone, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
-import { useState } from 'react';
-import { sendEmail } from '../../utils/sendEmail';
+import { useState, useCallback } from 'react';
+import { sendEmail, isValidEmail, isValidPhone } from '../../utils/sendEmail';
+import TurnstileWidget from '../TurnstileWidget';
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,6 +27,24 @@ const ContactSection = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Honeypot check — se preenchido, é bot
+    const honeypot = formData.get('website') as string;
+    if (honeypot) {
+      // Finge sucesso para não alertar o bot
+      setSubmitStatus('success');
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+      return;
+    }
+
+    // Validação de CAPTCHA
+    if (!turnstileToken) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, complete a verificação de segurança.');
+      setIsSubmitting(false);
+      return;
+    }
+
     const data = {
       nome: formData.get('nome') as string,
       email: formData.get('email') as string,
@@ -25,15 +53,32 @@ const ContactSection = () => {
       mensagem: formData.get('mensagem') as string,
     };
 
+    // Validação de email e telefone
+    if (!isValidEmail(data.email)) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, insira um e-mail válido.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!isValidPhone(data.telefone)) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, insira um telefone válido (10 ou 11 dígitos).');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const result = await sendEmail({
         formType: 'contact',
         data,
+        turnstileToken,
       });
 
       if (result.success) {
         setSubmitStatus('success');
         form.reset();
+        setTurnstileToken(null);
         // Limpa a mensagem de sucesso após 5 segundos
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
@@ -144,6 +189,18 @@ const ContactSection = () => {
             className="bg-gradient-to-br from-gray-50 to-white p-8 md:p-10 rounded-3xl border-2 border-gray-100"
           >
             <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* Honeypot - campo invisível anti-bot */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div>
                 <label htmlFor="nome" className="block text-sm font-bold text-gray-900 mb-2">
                   Nome Completo
@@ -220,6 +277,12 @@ const ContactSection = () => {
                   placeholder="Conte-nos como podemos ajudá-lo..."
                 />
               </div>
+
+              {/* Cloudflare Turnstile CAPTCHA */}
+              <TurnstileWidget
+                onVerify={handleTurnstileVerify}
+                onExpire={handleTurnstileExpire}
+              />
 
               {/* Status Messages */}
               {submitStatus === 'success' && (

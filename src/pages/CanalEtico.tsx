@@ -1,16 +1,26 @@
 import { motion } from 'framer-motion';
 import { MessageSquare, Phone, Mail, Clock, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
-import { sendEmail } from '../utils/sendEmail';
+import { sendEmail, isValidEmail, isValidPhone } from '../utils/sendEmail';
 import GoogleTagManager from '../components/GoogleTagManager';
+import TurnstileWidget from '../components/TurnstileWidget';
 
 const CanalEtico = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
 
   const responsabilidades = [
     'Receber demandas (reclamações, consultas, sugestões e elogios) relacionadas ao desempenho das diversas áreas da Integral',
@@ -27,6 +37,23 @@ const CanalEtico = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Honeypot check — se preenchido, é bot
+    const honeypot = formData.get('website') as string;
+    if (honeypot) {
+      setSubmitStatus('success');
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+      return;
+    }
+
+    // Validação de CAPTCHA
+    if (!turnstileToken) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, complete a verificação de segurança.');
+      setIsSubmitting(false);
+      return;
+    }
+
     const data = {
       nome: formData.get('nome') as string,
       email: formData.get('email') as string,
@@ -35,15 +62,32 @@ const CanalEtico = () => {
       mensagem: formData.get('mensagem') as string,
     };
 
+    // Validação de email e telefone
+    if (!isValidEmail(data.email)) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, insira um e-mail válido.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!isValidPhone(data.telefone)) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, insira um telefone válido (10 ou 11 dígitos).');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const result = await sendEmail({
         formType: 'canalEtico',
         data,
+        turnstileToken,
       });
 
       if (result.success) {
         setSubmitStatus('success');
         form.reset();
+        setTurnstileToken(null);
         // Limpa a mensagem de sucesso após 5 segundos
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
@@ -267,6 +311,18 @@ const CanalEtico = () => {
 
             <div className="bg-gradient-to-br from-gray-50 to-white p-8 md:p-10 rounded-3xl border-2 border-gray-100">
               <form className="space-y-6" onSubmit={handleSubmit}>
+                {/* Honeypot - campo invisível anti-bot */}
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <label htmlFor="ce-website">Website</label>
+                  <input
+                    type="text"
+                    id="ce-website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="nome" className="block text-sm font-bold text-gray-900 mb-2">
@@ -342,6 +398,12 @@ const CanalEtico = () => {
                     placeholder="Descreva sua manifestação de forma detalhada..."
                   />
                 </div>
+
+                {/* Cloudflare Turnstile CAPTCHA */}
+                <TurnstileWidget
+                  onVerify={handleTurnstileVerify}
+                  onExpire={handleTurnstileExpire}
+                />
 
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
