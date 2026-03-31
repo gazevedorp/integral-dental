@@ -3,7 +3,7 @@ import iconWhatsApp from '../assets/icon-whatsapp.png';
 
 const WhatsAppButton = () => {
   const whatsappNumber = '5516988326932';
-  const message = 'Olá! Gostaria de saber mais sobre os planos da Integral Dental.';
+  const message = 'Oi! Tudo bem? Acessei o site da Integral Dental e queria entender melhor os planos disponíveis.';
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
 
   return (
