@@ -355,7 +355,7 @@ const Header = () => {
             </div>
 
             <motion.a
-              href="https://api.whatsapp.com/send?phone=5516988326932"
+              href={`https://api.whatsapp.com/send?phone=5516988326932&text=${encodeURIComponent('Oi! Tudo bem? Acessei o site da Integral Dental e queria entender melhor os planos disponíveis.')}`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05, y: -2 }}
@@ -436,7 +436,7 @@ const Header = () => {
               </div>
 
               <a
-                href="https://api.whatsapp.com/send?phone=5516988326932"
+                href={`https://api.whatsapp.com/send?phone=5516988326932&text=${encodeURIComponent('Oi! Tudo bem? Acessei o site da Integral Dental e queria entender melhor os planos disponíveis.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-xl font-bold shadow-lg"
