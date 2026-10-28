@@ -16,11 +16,11 @@ const TopBar = () => {
     },
     {
       label: 'Área para Empresas',
-      href: 'http://cliente.odontosfera.com.br/login.aspx?operadora=359394'
+      href: 'https://portal.odontosfera.com.br/auth/signin?operadora=359394'
     },
     {
       label: 'Área do Cliente',
-      href: 'http://cliente.odontosfera.com.br/login.aspx?operadora=359394'
+      href: 'https://portal.odontosfera.com.br/auth/signin?operadora=359394'
     }
   ];
 

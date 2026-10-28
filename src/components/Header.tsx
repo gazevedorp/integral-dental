@@ -66,8 +66,8 @@ const Header = () => {
   const restrictedAreas = [
     { label: 'Área do Representante', href: 'http://prestador.odontosfera.com.br/login.aspx?operadora=359394' },
     { label: 'Área do Dentista', href: 'http://prestador.odontosfera.com.br/login.aspx?operadora=359394' },
-    { label: 'Área para Empresas', href: 'http://cliente.odontosfera.com.br/login.aspx?operadora=359394' },
-    { label: 'Área do Beneficiário', href: 'http://cliente.odontosfera.com.br/login.aspx?operadora=359394' }
+    { label: 'Área para Empresas', href: 'https://portal.odontosfera.com.br/auth/signin?operadora=359394' },
+    { label: 'Área do Beneficiário', href: 'https://portal.odontosfera.com.br/auth/signin?operadora=359394' }
   ];
 
   const downloadsMenu = [
